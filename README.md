@@ -35,3 +35,16 @@ YOURPATH/
 └── ...
 ```
 Note that ZED yields synced RGB+Depth+Pose topic, and we use message filter (10ms tolerance) for them.
+
+5. Run python script for post-processing
+```python
+python subsample_video.py
+```
+- It detects blurry images with low laplacian variance.
+- It detects wrongly acquired images (problem of camera itself) by tracking the optical flow.
+<p align="center">
+    <img src="./assets/normal_frame.png" alt="normal frame" width="45%"  />
+    <img src="./assets/wrong_frame.png" alt="wrong frame" width="45%" />
+</p>
+
+- User can specify the timestamp upper bound for recording, and also the stride if the video is too long.
