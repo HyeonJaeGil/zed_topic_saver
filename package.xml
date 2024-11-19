@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>zed_topic_saver</name>
+  <version>0.1.0</version>
+  <description>ROS2 node to save RGB, depth, and pose topics.</description>
+  <maintainer email="now9728@gmail.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>opencv</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
