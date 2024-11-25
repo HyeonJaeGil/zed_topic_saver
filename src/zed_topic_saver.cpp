@@ -84,9 +84,15 @@ private:
             RCLCPP_INFO(this->get_logger(), "Saved synchronized RGB image: %s", rgb_filename.c_str());
 
             // Save Depth image
-            auto depth_image = cv_bridge::toCvCopy(depth_msg, sensor_msgs::image_encodings::TYPE_16UC1);
-            if (depth_msg->encoding == sensor_msgs::image_encodings::TYPE_32FC1) {
+            cv_bridge::CvImagePtr depth_image;
+            if (depth_msg->encoding == sensor_msgs::image_encodings::TYPE_16UC1){
+                depth_image = cv_bridge::toCvCopy(depth_msg, "16UC1");
+            } else if (depth_msg->encoding == sensor_msgs::image_encodings::TYPE_32FC1) {
+                depth_image = cv_bridge::toCvCopy(depth_msg, "32FC1");
                 depth_image->image.convertTo(depth_image->image, CV_16U, 1000);
+            } else {
+                RCLCPP_ERROR(this->get_logger(), "Depth image is not in 16UC1 or 32FC1 format.");
+                return;
             }
             std::string depth_filename = output_folder_ + "/depth/" + timestamp + ".png";
             cv::imwrite(depth_filename, depth_image->image);
